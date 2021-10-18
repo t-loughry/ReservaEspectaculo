@@ -1,0 +1,60 @@
+﻿@model IEnumerable<ReservaEspectaculo.Models.Reserva>
+
+@{
+    ViewData["Title"] = "Reservas";
+}
+
+<h1>Su Reserva</h1>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.FechaAlta)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Funcion.Fecha)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Funcion)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CantidadButacas)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ReservaActiva)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.FechaAlta)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Funcion.Fecha) @Html.DisplayFor(modelItem => item.Funcion.Hora)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Funcion.Pelicula.Titulo)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CantidadButacas)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ReservaActiva)
+            </td>
+            <td>
+                @*<a asp-action="Edit" asp-route-id="@item.ReservaId"><i class="fas fa-pen-square"></i></a> |*@
+               @if (item.Funcion.Fecha.Date > DateTime.Today.Date.AddDays(1))
+                {
+                  
+                    <a asp-action="Delete" asp-route-id="@item.ReservaId"><i class="fas fa-trash-alt"></i></a>
+
+                }
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
